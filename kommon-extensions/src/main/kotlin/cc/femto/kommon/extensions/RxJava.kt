@@ -2,7 +2,6 @@ package cc.femto.kommon.extensions
 
 import retrofit2.adapter.rxjava.Result
 import rx.Observable
-import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 /**
@@ -14,9 +13,9 @@ fun <T> Observable<T>.retryAfterTimeout(attempts: Int = 3): Observable<T> = retr
     error.zipWith(Observable.range(0, attempts + 1), { t, i -> t to i })
             .doOnNext {
                 if (it.second < attempts)
-                    Timber.d("Retrying in ${ld(it.second)}s (${(it.first as Throwable).message})")
+                    d("Retrying in ${ld(it.second)}s (${(it.first as Throwable).message})")
                 else
-                    Timber.e("Failing after $attempts attempts (${(it.first as Throwable).message})")
+                    e("Failing after $attempts attempts (${(it.first as Throwable).message})")
             }
             .flatMap {
                 if (it.second === attempts)
