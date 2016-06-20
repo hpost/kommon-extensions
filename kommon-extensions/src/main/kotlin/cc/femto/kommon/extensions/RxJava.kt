@@ -13,7 +13,7 @@ fun <T> Observable<T>.retryAfterTimeout(attempts: Int = 3): Observable<T> = retr
     error.zipWith(Observable.range(0, attempts + 1), { t, i -> t to i })
             .doOnNext {
                 if (it.second < attempts)
-                    d("Retrying in ${ld(it.second)}s (${(it.first as Throwable).message})")
+                    d("Retrying in ${2 pow it.second}s (${(it.first as Throwable).message})")
                 else
                     e("Failing after $attempts attempts (${(it.first as Throwable).message})")
             }
@@ -21,7 +21,7 @@ fun <T> Observable<T>.retryAfterTimeout(attempts: Int = 3): Observable<T> = retr
                 if (it.second === attempts)
                     Observable.error(it.first as Throwable)
                 else
-                    Observable.timer(ld(it.second).toLong(), TimeUnit.SECONDS)
+                    Observable.timer((2 pow it.second).toLong(), TimeUnit.SECONDS)
             }
 }
 
