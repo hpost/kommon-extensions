@@ -9,8 +9,11 @@ import android.support.annotation.ColorRes
 import android.support.v4.view.animation.FastOutLinearInInterpolator
 import android.support.v4.view.animation.FastOutSlowInInterpolator
 import android.support.v4.view.animation.LinearOutSlowInInterpolator
+import android.transition.Transition
+import android.transition.TransitionManager
 import android.view.View
 import android.view.ViewAnimationUtils
+import android.view.ViewGroup
 import android.view.ViewPropertyAnimator
 import android.view.animation.CycleInterpolator
 
@@ -299,4 +302,12 @@ fun View.colorFade(@ColorRes from: Int? = null, @ColorRes to: Int, build: (Value
     }
     val fromColor = from ?: (background as ColorDrawable).color
     colorFade(fromColor, to, build) { setBackgroundColor(it) }
+}
+
+fun ViewGroup.transition(transition: Transition? = null) {
+    if (transition != null) {
+        TransitionManager.beginDelayedTransition(this, transition)
+    } else {
+        TransitionManager.beginDelayedTransition(this)
+    }
 }
