@@ -1,5 +1,5 @@
 # Kommon
-[![](https://jitpack.io/v/hpost/Kommon.svg)](https://jitpack.io/#hpost/Kommon)
+[![](https://jitpack.io/v/hpost/kommon-extensions.svg)](https://jitpack.io/#cc.femto/kommon-extensions)
 
 Commonly used code when developing for Android in Kotlin.
 
@@ -16,6 +16,6 @@ and:
 
 ```gradle
 dependencies {
-    compile 'com.github.hpost:Kommon:master-SNAPSHOT'
+    compile 'cc.femto:kommon-extensions:0.1'
 }
 ```
