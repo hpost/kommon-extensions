@@ -13,9 +13,9 @@ fun <T> Observable<T>.retryAfterTimeout(attempts: Int = 3): Observable<T> = retr
     error.zipWith(Observable.range(0, attempts + 1), { t, i -> t to i })
             .doOnNext {
                 if (it.second < attempts)
-                    d("Retrying in ${2 pow it.second}s (${(it.first as Throwable).message})")
+                    i("Retrying in ${2 pow it.second}s (${(it.first as Throwable).message})")
                 else
-                    e("Failing after $attempts attempts (${(it.first as Throwable).message})")
+                    d("Failing after $attempts attempts (${(it.first as Throwable).message})")
             }
             .flatMap {
                 if (it.second === attempts)
