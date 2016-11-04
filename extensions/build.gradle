@@ -7,7 +7,7 @@ group='com.github.hpost'
 
 buildscript {
     ext.kotlin_version = '1.0.4'
-    ext.support_version = '24.2.1'
+    ext.support_version = '25.0.0'
     ext.rxjava_version = '1.2.0'
     ext.retrofit_version = '2.1.0'
 
@@ -15,20 +15,20 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:2.2.1"
+        classpath "com.android.tools.build:gradle:2.2.2"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.2"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 24
-        versionCode 4
-        versionName "0.2.2"
+        targetSdkVersion 25
+        versionCode 5
+        versionName "0.3.0"
     }
     buildTypes {
         release {
