@@ -21,7 +21,6 @@ fun Context.drawable(@DrawableRes resourceId: Int, tintColorResId: Int): Drawabl
     drawable.setTint(color(tintColorResId))
     return drawable
 }
-
 fun Context.string(@StringRes resourceId: Int): String = resources.getString(resourceId)
 fun Context.string(@StringRes resourceId: Int, vararg args: Any?): String = resources.getString(resourceId, *args)
 fun Context.quantityString(@PluralsRes resourceId: Int, quantity: Int): String = resources.getQuantityString(resourceId, quantity, quantity)
@@ -49,6 +48,11 @@ fun bool(@BoolRes resourceId: Int): Boolean = Kommon.ctx.resources.getBoolean(re
 fun color(@ColorRes resourceId: Int): Int = ContextCompat.getColor(Kommon.ctx, resourceId)
 fun colorStateList(@DrawableRes resourceId: Int): ColorStateList = ContextCompat.getColorStateList(Kommon.ctx, resourceId)
 fun drawable(@DrawableRes resourceId: Int): Drawable = ContextCompat.getDrawable(Kommon.ctx, resourceId)
+fun drawable(@DrawableRes resourceId: Int, tintColorResId: Int): Drawable {
+    val drawable = ContextCompat.getDrawable(Kommon.ctx, resourceId)
+    drawable.setTint(color(tintColorResId))
+    return drawable
+}
 fun string(@StringRes resourceId: Int): String = Kommon.ctx.resources.getString(resourceId)
 fun string(@StringRes resourceId: Int, vararg args: Any?): String = Kommon.ctx.resources.getString(resourceId, *args)
 fun quantityString(@PluralsRes resourceId: Int, quantity: Int): String = Kommon.ctx.resources.getQuantityString(resourceId, quantity, quantity)
