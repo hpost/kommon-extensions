@@ -3,11 +3,15 @@ package cc.femto.kommon.extensions
 import android.content.Context
 import android.graphics.Rect
 import android.support.annotation.ColorRes
+import android.support.annotation.IdRes
+import android.support.annotation.MenuRes
+import android.support.design.internal.NavigationMenu
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-import android.view.View
-import android.view.ViewTreeObserver
-import android.view.Window
+import android.support.v7.view.SupportMenuInflater
+import android.support.v7.view.menu.MenuBuilder
+import android.support.v7.view.menu.MenuPopupHelper
+import android.view.*
 
 val View.ctx: Context
     get() = context
@@ -56,6 +60,25 @@ inline fun <T : View> T.preDraw(proceedDrawingPass: Boolean = true, crossinline 
             return proceedDrawingPass
         }
     })
+}
+
+fun View.popup(@MenuRes menuRes: Int, gravity: Int = Gravity.END, showIcons: Boolean = true, callback: (@IdRes Int) -> Unit) {
+    val menu = NavigationMenu(context)
+    val menuCallback = object : MenuBuilder.Callback {
+        override fun onMenuItemSelected(menu: MenuBuilder?, item: MenuItem?): Boolean {
+            callback.invoke(item?.itemId ?: -1)
+            return true
+        }
+
+        override fun onMenuModeChange(menu: MenuBuilder?) {
+        }
+    }
+    menu.setCallback(menuCallback)
+    SupportMenuInflater(context).inflate(menuRes, menu)
+    val popupHelper = MenuPopupHelper(context, menu, this)
+    popupHelper.gravity = gravity
+    popupHelper.setForceShowIcon(showIcons)
+    popupHelper.show()
 }
 
 fun View.intersectsWith(other: View): Boolean {
