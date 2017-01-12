@@ -11,7 +11,9 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.view.SupportMenuInflater
 import android.support.v7.view.menu.MenuBuilder
 import android.support.v7.view.menu.MenuPopupHelper
+import android.transition.Transition
 import android.view.*
+import cc.femto.kommon.util.TransitionAdapter
 
 val View.ctx: Context
     get() = context
@@ -58,6 +60,78 @@ inline fun <T : View> T.preDraw(proceedDrawingPass: Boolean = true, crossinline 
             viewTreeObserver.removeOnPreDrawListener(this)
             body()
             return proceedDrawingPass
+        }
+    })
+}
+
+inline fun <T : View> T.onSharedElementExitTransitionStart(crossinline body: T.() -> Unit) {
+    window.sharedElementExitTransition.addListener(object : TransitionAdapter() {
+        override fun onTransitionStart(transition: Transition) {
+            window.sharedElementExitTransition.removeListener(this)
+            body()
+        }
+    })
+}
+
+inline fun <T : View> T.onSharedElementExitTransitionEnd(crossinline body: T.() -> Unit) {
+    window.sharedElementExitTransition.addListener(object : TransitionAdapter() {
+        override fun onTransitionEnd(transition: Transition) {
+            window.sharedElementExitTransition.removeListener(this)
+            body()
+        }
+    })
+}
+
+inline fun <T : View> T.onSharedElementEnterTransitionStart(crossinline body: T.() -> Unit) {
+    window.sharedElementEnterTransition.addListener(object : TransitionAdapter() {
+        override fun onTransitionStart(transition: Transition) {
+            window.sharedElementEnterTransition.removeListener(this)
+            body()
+        }
+    })
+}
+
+inline fun <T : View> T.onSharedElementEnterTransitionEnd(crossinline body: T.() -> Unit) {
+    window.sharedElementEnterTransition.addListener(object : TransitionAdapter() {
+        override fun onTransitionEnd(transition: Transition) {
+            window.sharedElementEnterTransition.removeListener(this)
+            body()
+        }
+    })
+}
+
+inline fun <T : View> T.onSharedElementReturnTransitionStart(crossinline body: T.() -> Unit) {
+    window.sharedElementReturnTransition.addListener(object : TransitionAdapter() {
+        override fun onTransitionStart(transition: Transition) {
+            window.sharedElementReturnTransition.removeListener(this)
+            body()
+        }
+    })
+}
+
+inline fun <T : View> T.onSharedElementReturnTransitionEnd(crossinline body: T.() -> Unit) {
+    window.sharedElementReturnTransition.addListener(object : TransitionAdapter() {
+        override fun onTransitionEnd(transition: Transition) {
+            window.sharedElementReturnTransition.removeListener(this)
+            body()
+        }
+    })
+}
+
+inline fun <T : View> T.onSharedElementReenterTransitionStart(crossinline body: T.() -> Unit) {
+    window.sharedElementReenterTransition.addListener(object : TransitionAdapter() {
+        override fun onTransitionStart(transition: Transition) {
+            window.sharedElementReenterTransition.removeListener(this)
+            body()
+        }
+    })
+}
+
+inline fun <T : View> T.onSharedElementReenterTransitionEnd(crossinline body: T.() -> Unit) {
+    window.sharedElementReenterTransition.addListener(object : TransitionAdapter() {
+        override fun onTransitionEnd(transition: Transition) {
+            window.sharedElementReenterTransition.removeListener(this)
+            body()
         }
     })
 }

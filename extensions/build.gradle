@@ -6,8 +6,8 @@ apply plugin: 'com.github.dcendents.android-maven'
 group='com.github.hpost'
 
 buildscript {
-    ext.kotlin_version = '1.0.4'
-    ext.support_version = '25.0.0'
+    ext.kotlin_version = '1.0.6'
+    ext.support_version = '25.1.0'
     ext.rxjava_version = '1.2.0'
     ext.retrofit_version = '2.1.0'
 
@@ -22,13 +22,13 @@ buildscript {
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    buildToolsVersion "25.0.2"
 
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 25
-        versionCode 7
-        versionName "0.3.2"
+        versionCode 8
+        versionName "0.4"
     }
     buildTypes {
         release {
