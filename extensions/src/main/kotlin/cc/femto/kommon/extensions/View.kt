@@ -15,6 +15,7 @@ import android.transition.Transition
 import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
+import android.view.View.*
 import android.view.ViewTreeObserver
 import android.view.Window
 import cc.femto.kommon.util.TransitionAdapter
@@ -27,6 +28,24 @@ val View.activity: AppCompatActivity
 
 val View.window: Window
     get() = activity.window
+
+fun View.visible() {
+    visibility = VISIBLE
+}
+
+fun View.invisible() {
+    visibility = INVISIBLE
+}
+
+fun View.gone() {
+    visibility = GONE
+}
+
+fun View.isVisible() = visibility == VISIBLE
+
+fun View.isInvisible() = visibility != VISIBLE
+
+fun View.isGone() = visibility == GONE
 
 fun View.hideKeyboard() {
     activity.hideKeyboard()
