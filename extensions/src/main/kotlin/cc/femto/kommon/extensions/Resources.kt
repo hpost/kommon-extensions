@@ -3,7 +3,13 @@ package cc.femto.kommon.extensions
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
-import android.support.annotation.*
+import android.support.annotation.BoolRes
+import android.support.annotation.ColorRes
+import android.support.annotation.DimenRes
+import android.support.annotation.DrawableRes
+import android.support.annotation.IntegerRes
+import android.support.annotation.PluralsRes
+import android.support.annotation.StringRes
 import android.support.v4.content.ContextCompat
 import android.util.TypedValue
 import android.view.View
@@ -14,13 +20,14 @@ fun Context.dimen(@DimenRes resourceId: Int): Float = resources.getDimension(res
 fun Context.integer(@IntegerRes resourceId: Int): Int = resources.getInteger(resourceId)
 fun Context.bool(@BoolRes resourceId: Int): Boolean = resources.getBoolean(resourceId)
 fun Context.color(@ColorRes resourceId: Int): Int = ContextCompat.getColor(this, resourceId)
-fun Context.colorStateList(@DrawableRes resourceId: Int): ColorStateList = ContextCompat.getColorStateList(this, resourceId)
+fun Context.colorStateList(@ColorRes resourceId: Int): ColorStateList = ContextCompat.getColorStateList(this, resourceId)
 fun Context.drawable(@DrawableRes resourceId: Int): Drawable = ContextCompat.getDrawable(this, resourceId)
 fun Context.drawable(@DrawableRes resourceId: Int, tintColorResId: Int): Drawable {
     val drawable = ContextCompat.getDrawable(this, resourceId)
     drawable.setTint(color(tintColorResId))
     return drawable
 }
+
 fun Context.string(@StringRes resourceId: Int): String = resources.getString(resourceId)
 fun Context.string(@StringRes resourceId: Int, vararg args: Any?): String = resources.getString(resourceId, *args)
 fun Context.quantityString(@PluralsRes resourceId: Int, quantity: Int): String = resources.getQuantityString(resourceId, quantity, quantity)
@@ -30,13 +37,14 @@ fun View.dimen(@DimenRes resourceId: Int): Float = resources.getDimension(resour
 fun View.integer(@IntegerRes resourceId: Int): Int = resources.getInteger(resourceId)
 fun View.bool(@BoolRes resourceId: Int): Boolean = resources.getBoolean(resourceId)
 fun View.color(@ColorRes resourceId: Int): Int = ContextCompat.getColor(ctx, resourceId)
-fun View.colorStateList(@DrawableRes resourceId: Int): ColorStateList = ContextCompat.getColorStateList(ctx, resourceId)
+fun View.colorStateList(@ColorRes resourceId: Int): ColorStateList = ContextCompat.getColorStateList(ctx, resourceId)
 fun View.drawable(@DrawableRes resourceId: Int): Drawable = ContextCompat.getDrawable(ctx, resourceId)
 fun View.drawable(@DrawableRes resourceId: Int, tintColorResId: Int): Drawable {
     val drawable = ContextCompat.getDrawable(ctx, resourceId)
     drawable.setTint(color(tintColorResId))
     return drawable
 }
+
 fun View.string(@StringRes resourceId: Int): String = resources.getString(resourceId)
 fun View.string(@StringRes resourceId: Int, vararg args: Any?): String = resources.getString(resourceId, *args)
 fun View.quantityString(@PluralsRes resourceId: Int, quantity: Int, vararg args: Any?): String = resources.getQuantityString(resourceId, quantity, quantity, *args)
@@ -46,23 +54,20 @@ fun dimen(@DimenRes resourceId: Int): Float = Kommon.ctx.resources.getDimension(
 fun integer(@IntegerRes resourceId: Int): Int = Kommon.ctx.resources.getInteger(resourceId)
 fun bool(@BoolRes resourceId: Int): Boolean = Kommon.ctx.resources.getBoolean(resourceId)
 fun color(@ColorRes resourceId: Int): Int = ContextCompat.getColor(Kommon.ctx, resourceId)
-fun colorStateList(@DrawableRes resourceId: Int): ColorStateList = ContextCompat.getColorStateList(Kommon.ctx, resourceId)
+fun colorStateList(@ColorRes resourceId: Int): ColorStateList = ContextCompat.getColorStateList(Kommon.ctx, resourceId)
 fun drawable(@DrawableRes resourceId: Int): Drawable = ContextCompat.getDrawable(Kommon.ctx, resourceId)
 fun drawable(@DrawableRes resourceId: Int, tintColorResId: Int): Drawable {
     val drawable = ContextCompat.getDrawable(Kommon.ctx, resourceId)
     drawable.setTint(color(tintColorResId))
     return drawable
 }
+
 fun string(@StringRes resourceId: Int): String = Kommon.ctx.resources.getString(resourceId)
 fun string(@StringRes resourceId: Int, vararg args: Any?): String = Kommon.ctx.resources.getString(resourceId, *args)
 fun quantityString(@PluralsRes resourceId: Int, quantity: Int): String = Kommon.ctx.resources.getQuantityString(resourceId, quantity, quantity)
 
-val toolbarHeight: Int = -1
-    get() {
-        if (field < 0) {
-            val value = TypedValue()
-            Kommon.ctx.theme.resolveAttribute(android.R.attr.actionBarSize, value, true)
-            field = TypedValue.complexToDimensionPixelSize(value.data, Kommon.ctx.resources.displayMetrics)
-        }
-        return field
-    }
+val toolbarHeight: Int by lazy {
+    val value = TypedValue()
+    Kommon.ctx.theme.resolveAttribute(android.R.attr.actionBarSize, value, true)
+    TypedValue.complexToDimensionPixelSize(value.data, Kommon.ctx.resources.displayMetrics)
+}

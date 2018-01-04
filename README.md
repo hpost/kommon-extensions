@@ -16,6 +16,6 @@ and:
 
 ```gradle
 dependencies {
-    compile 'cc.femto:kommon-extensions:0.6.0'
+    compile 'cc.femto:kommon-extensions:1.0.0'
 }
 ```

@@ -1,7 +1,8 @@
 package cc.femto.kommon.extensions
 
-import retrofit2.adapter.rxjava.Result
-import rx.Observable
+import io.reactivex.Observable
+import retrofit2.adapter.rxjava2.Result
+
 
 val <T> Result<T>.isSuccess: Boolean
     get() = !isError && response().isSuccessful
