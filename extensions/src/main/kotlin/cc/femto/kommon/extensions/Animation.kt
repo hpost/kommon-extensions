@@ -5,10 +5,6 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.graphics.drawable.ColorDrawable
-import android.support.annotation.ColorRes
-import android.support.v4.view.animation.FastOutLinearInInterpolator
-import android.support.v4.view.animation.FastOutSlowInInterpolator
-import android.support.v4.view.animation.LinearOutSlowInInterpolator
 import android.transition.Transition
 import android.transition.TransitionManager
 import android.view.View
@@ -16,7 +12,10 @@ import android.view.ViewAnimationUtils
 import android.view.ViewGroup
 import android.view.ViewPropertyAnimator
 import android.view.animation.CycleInterpolator
-
+import androidx.annotation.ColorRes
+import androidx.interpolator.view.animation.FastOutLinearInInterpolator
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
+import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
 
 object AnimationConstants {
     const val LICKETY_SPLIT = 150L

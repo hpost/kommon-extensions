@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit
  * @return Observable with retry logic
  */
 fun <T> Observable<T>.retryAfterTimeout(maxAttempts: Int = 3): Observable<T> = retryWhen { error ->
-    error.zipWith(Observable.range(0, maxAttempts + 1), { throwable, attempt -> throwable to attempt })
+    error.zipWith(Observable.range(0, maxAttempts + 1))
             .doOnNext { (throwable, attempt) ->
                 if (attempt < maxAttempts)
                     i("Retrying in ${2 pow attempt}s (${throwable.message})")

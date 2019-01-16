@@ -1,16 +1,9 @@
 package cc.femto.kommon.extensions
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Point
 import android.graphics.Rect
-import android.support.annotation.ColorRes
-import android.support.annotation.MenuRes
-import android.support.design.internal.NavigationMenu
-import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.view.SupportMenuInflater
-import android.support.v7.view.menu.MenuBuilder
-import android.support.v7.view.menu.MenuPopupHelper
 import android.transition.Transition
 import android.view.Gravity
 import android.view.MenuItem
@@ -18,7 +11,15 @@ import android.view.View
 import android.view.View.*
 import android.view.ViewTreeObserver
 import android.view.Window
+import androidx.annotation.ColorRes
+import androidx.annotation.MenuRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.SupportMenuInflater
+import androidx.appcompat.view.menu.MenuBuilder
+import androidx.appcompat.view.menu.MenuPopupHelper
 import cc.femto.kommon.util.TransitionAdapter
+import com.google.android.material.internal.NavigationMenu
+import com.google.android.material.snackbar.Snackbar
 
 val View.ctx: Context
     get() = context
@@ -159,6 +160,7 @@ inline fun <T : View> T.onSharedElementReenterTransitionEnd(crossinline body: T.
     })
 }
 
+@SuppressLint("RestrictedApi")
 fun View.popup(@MenuRes menuRes: Int, gravity: Int = Gravity.END, showIcons: Boolean = true, callback: (Int) -> Unit) {
     val menu = NavigationMenu(context)
     val menuCallback = object : MenuBuilder.Callback {

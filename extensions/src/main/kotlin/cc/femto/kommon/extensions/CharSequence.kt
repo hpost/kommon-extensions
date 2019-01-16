@@ -1,7 +1,7 @@
 package cc.femto.kommon.extensions
 
-import android.support.annotation.StringRes
 import android.util.Patterns
+import androidx.annotation.StringRes
 
 fun CharSequence.isEmail() = isNotBlank() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
