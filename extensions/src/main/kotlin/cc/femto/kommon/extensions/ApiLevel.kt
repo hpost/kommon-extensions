@@ -37,3 +37,17 @@ inline fun api26(block: () -> Unit) {
         block()
     }
 }
+
+@TargetApi(Build.VERSION_CODES.P)
+inline fun api28(block: () -> Unit) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        block()
+    }
+}
+
+@TargetApi(Build.VERSION_CODES.Q)
+inline fun api29(block: () -> Unit) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        block()
+    }
+}

@@ -2,6 +2,7 @@ package cc.femto.kommon.extensions
 
 import io.reactivex.Observable
 import retrofit2.adapter.rxjava2.Result
+import java.io.IOException
 
 
 val <T> Result<T>.isSuccess: Boolean
@@ -18,3 +19,15 @@ fun <S, T : Result<S>> Observable<T>.multiplexResult(): Pair<Observable<T>, Obse
     val result = this.publish().autoConnect(2)
     return result.filter { it.isSuccess } to result.filter { !it.isSuccess }
 }
+
+/**
+ * Resubscribe to Retrofit request that failed with network errors
+ * up to `maxAttempts` times with exponential backoff.
+ *
+ * @param maxAttempts Maximum number of retries
+ * @return Observable with retry logic that wraps the error in a Retrofit [Result]
+ */
+fun <T> Observable<Result<T>>.retryOnNetworkError(maxAttempts: Int = 3): Observable<Result<T>> =
+        doOnNext { if (it.isError) throw it.error() ?: IOException() }
+                .retryAfterTimeout(maxAttempts)
+                .onErrorReturn { Result.error(it) }

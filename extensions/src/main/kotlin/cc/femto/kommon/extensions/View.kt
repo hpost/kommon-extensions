@@ -5,18 +5,14 @@ import android.content.Context
 import android.graphics.Point
 import android.graphics.Rect
 import android.transition.Transition
-import android.view.Gravity
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import android.view.View.*
-import android.view.ViewTreeObserver
-import android.view.Window
 import androidx.annotation.ColorRes
 import androidx.annotation.MenuRes
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.SupportMenuInflater
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.view.menu.MenuPopupHelper
+import androidx.core.app.ComponentActivity
 import cc.femto.kommon.util.TransitionAdapter
 import com.google.android.material.internal.NavigationMenu
 import com.google.android.material.snackbar.Snackbar
@@ -24,8 +20,8 @@ import com.google.android.material.snackbar.Snackbar
 val View.ctx: Context
     get() = context
 
-val View.activity: AppCompatActivity
-    get() = context as AppCompatActivity
+val View.activity: ComponentActivity
+    get() = context as ComponentActivity
 
 val View.window: Window
     get() = activity.window
@@ -69,7 +65,7 @@ inline fun <T : View> T.globalLayout(crossinline body: T.() -> Unit) {
     })
 }
 
-inline fun <T : View> T.layoutChange(crossinline body: T.() -> Unit) {
+inline fun <T : View> T.onLayoutChange(crossinline body: T.() -> Unit) {
     addOnLayoutChangeListener(object : View.OnLayoutChangeListener {
         override fun onLayoutChange(v: View?, left: Int, top: Int, right: Int, bottom: Int, oldLeft: Int, oldTop: Int, oldRight: Int, oldBottom: Int) {
             removeOnLayoutChangeListener(this)
@@ -78,7 +74,7 @@ inline fun <T : View> T.layoutChange(crossinline body: T.() -> Unit) {
     })
 }
 
-inline fun <T : View> T.preDraw(proceedDrawingPass: Boolean = true, crossinline body: T.() -> Unit) {
+inline fun <T : View> T.onPreDraw(proceedDrawingPass: Boolean = true, crossinline body: T.() -> Unit) {
     viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
         override fun onPreDraw(): Boolean {
             viewTreeObserver.removeOnPreDrawListener(this)
@@ -207,4 +203,3 @@ fun View.locationInWindow(): Point {
     getLocationInWindow(viewLoc)
     return Point(viewLoc[0], viewLoc[1])
 }
-
