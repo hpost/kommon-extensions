@@ -41,6 +41,14 @@ fun View.gone() {
     visibility = GONE
 }
 
+fun View.visibleOrInvisible(visible: Boolean) {
+    visibility = if (visible) VISIBLE else INVISIBLE
+}
+
+fun View.visibleOrGone(visible: Boolean) {
+    visibility = if (visible) VISIBLE else GONE
+}
+
 fun View.isVisible() = visibility == VISIBLE
 
 fun View.isInvisible() = visibility != VISIBLE
