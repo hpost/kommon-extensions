@@ -10,12 +10,14 @@ import android.view.MenuItem
 import android.view.View
 import android.view.View.*
 import android.view.Window
+import android.view.inputmethod.InputMethodManager
 import androidx.annotation.ColorRes
 import androidx.annotation.MenuRes
 import androidx.appcompat.view.SupportMenuInflater
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.view.menu.MenuPopupHelper
 import androidx.core.app.ComponentActivity
+import androidx.core.content.ContextCompat.getSystemService
 import cc.femto.kommon.util.TransitionAdapter
 import com.google.android.material.internal.NavigationMenu
 import com.google.android.material.snackbar.Snackbar
@@ -185,4 +187,13 @@ fun View.locationInWindow(): Point {
     val viewLoc = intArrayOf(0, 0)
     getLocationInWindow(viewLoc)
     return Point(viewLoc[0], viewLoc[1])
+}
+
+fun View.showKeyboard() {
+    postDelayed({
+        if (requestFocus()) {
+            val imm = getSystemService(context, InputMethodManager::class.java)
+            imm?.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
+        }
+    }, 200)
 }
